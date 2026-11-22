@@ -1,0 +1,272 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>RideIt - Tu viaje, tu favor, tu compra</title>
+<link rel="stylesheet" href="brand.css">
+<meta name="theme-color" content="#111">
+<meta name="description" content="RideIt: viajes, favores y compras en un solo lugar. Seguro, rapido y facil.">
+<style>
+  body { background: #fff; }
+
+  /* ── Nav ── */
+  .landing-nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 28px;
+    background: rgba(255,255,255,.88);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--ri-line);
+  }
+  .landing-nav__links { display: flex; align-items: center; gap: 28px; }
+  .landing-nav__links a {
+    font-size: 14px; font-weight: 600; color: var(--ri-ink-2);
+    text-decoration: none; transition: color .2s;
+  }
+  .landing-nav__links a:hover { color: var(--ri-ink); }
+  .mobile-menu-btn {
+    display: none; background: none; border: none; cursor: pointer; color: var(--ri-ink); padding: 4px;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    text-align: center; padding: 72px 24px 56px;
+    background: linear-gradient(180deg, var(--ri-surface) 0%, #fff 100%);
+  }
+  .hero h1 {
+    font-size: 48px; font-weight: 800; letter-spacing: -.03em;
+    line-height: 1.1; margin: 0 0 12px; max-width: 600px; margin-left: auto; margin-right: auto;
+  }
+  .hero p { font-size: 17px; color: var(--ri-mute); max-width: 500px; margin: 0 auto 32px; line-height: 1.5; }
+  .hero-btns { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+
+  /* ── Services ── */
+  .section { padding: 64px 24px; max-width: 960px; margin: 0 auto; }
+  .section-title {
+    font-size: 32px; font-weight: 800; letter-spacing: -.02em;
+    text-align: center; margin-bottom: 40px;
+  }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: 20px; }
+  .service-card {
+    background: #fff; border: 1px solid var(--ri-line); border-radius: 20px;
+    padding: 32px 24px; text-align: center;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,.08); }
+  .service-card__icon {
+    width: 64px; height: 64px; border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 16px;
+  }
+  .service-card__icon--blue { background: var(--ri-blue-soft); color: var(--ri-blue); }
+  .service-card__icon--amber { background: #fef3c7; color: #d97706; }
+  .service-card__icon--green { background: var(--ri-green-soft); color: var(--ri-green); }
+  .service-card h3 { font-size: 18px; font-weight: 700; margin: 0 0 6px; }
+  .service-card p { font-size: 14px; color: var(--ri-mute); line-height: 1.5; }
+
+  /* ── Benefits ── */
+  .benefits { background: var(--ri-surface-2); padding: 64px 24px; }
+  .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap: 20px; max-width: 960px; margin: 0 auto; }
+  .benefit {
+    background: #fff; border: 1px solid var(--ri-line); border-radius: 16px;
+    padding: 24px;
+  }
+  .benefit h3 { font-size: 15px; font-weight: 700; margin: 0 0 6px; }
+  .benefit p { font-size: 13px; color: var(--ri-mute); line-height: 1.6; }
+
+  /* ── Conductor band ── */
+  .conductor-band {
+    background: var(--ri-ink); color: #fff;
+    padding: 56px 24px; text-align: center;
+  }
+  .conductor-band h2 { font-size: 28px; font-weight: 800; margin: 0 0 8px; }
+  .conductor-band p { font-size: 15px; color: rgba(255,255,255,.6); margin-bottom: 24px; }
+
+  /* ── Stats ── */
+  .stats-row {
+    display: flex; justify-content: center; gap: 48px; flex-wrap: wrap;
+    padding: 48px 24px; max-width: 700px; margin: 0 auto;
+  }
+  .stat-item { text-align: center; }
+  .stat-item__val { font-size: 36px; font-weight: 800; color: var(--ri-blue); }
+  .stat-item__label { font-size: 13px; color: var(--ri-mute); font-weight: 600; }
+
+  /* ── Footer ── */
+  .landing-footer {
+    background: var(--ri-surface-2); border-top: 1px solid var(--ri-line);
+    padding: 32px 24px; text-align: center;
+  }
+  .footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 12px; flex-wrap: wrap; }
+  .footer-links a { font-size: 13px; color: var(--ri-mute); text-decoration: none; font-weight: 600; }
+  .footer-links a:hover { color: var(--ri-ink); }
+  .footer-copy { font-size: 12px; color: var(--ri-mute); }
+
+  /* ── Mobile nav overlay ── */
+  .mobile-overlay {
+    display: none; position: fixed; inset: 0; z-index: 200;
+    background: rgba(0,0,0,.4); backdrop-filter: blur(4px);
+  }
+  .mobile-overlay.open { display: block; }
+  .mobile-drawer {
+    position: fixed; top: 0; right: 0; width: 280px; height: 100%;
+    background: #fff; z-index: 201; padding: 28px 24px;
+    transform: translateX(100%); transition: transform .3s;
+    display: flex; flex-direction: column; gap: 20px;
+  }
+  .mobile-overlay.open .mobile-drawer { transform: translateX(0); }
+  .mobile-drawer a {
+    font-size: 16px; font-weight: 700; color: var(--ri-ink); text-decoration: none;
+  }
+  .mobile-drawer__close {
+    align-self: flex-end; background: none; border: none; cursor: pointer; color: var(--ri-mute);
+  }
+
+  @media (max-width: 640px) {
+    .landing-nav__links { display: none; }
+    .mobile-menu-btn { display: block; }
+    .hero h1 { font-size: 32px; }
+    .hero p { font-size: 15px; }
+    .section-title { font-size: 24px; }
+    .stats-row { gap: 24px; }
+    .stat-item__val { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="landing-nav">
+  <a class="ri-logo" href="index.html" style="text-decoration:none">
+    <span class="ri-logo__mark">R</span>
+    <span>RideIt</span>
+  </a>
+  <div class="landing-nav__links">
+    <a href="#services">Servicios</a>
+    <a href="login_conductor.php">Soy conductor</a>
+    <a href="help.php">Ayuda</a>
+    <a href="login_pasajero.php" class="ri-btn ri-btn--sm ri-btn--blue">Iniciar Sesion</a>
+  </div>
+  <button class="mobile-menu-btn" onclick="document.getElementById('mobileMenu').classList.add('open')" aria-label="Menu">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+</nav>
+
+<!-- Mobile drawer -->
+<div class="mobile-overlay" id="mobileMenu" onclick="this.classList.remove('open')">
+  <div class="mobile-drawer" onclick="event.stopPropagation()">
+    <button class="mobile-drawer__close" onclick="document.getElementById('mobileMenu').classList.remove('open')">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <a href="#services">Servicios</a>
+    <a href="login_conductor.php">Soy conductor</a>
+    <a href="help.php">Ayuda</a>
+    <a href="login_pasajero.php" class="ri-btn ri-btn--blue ri-btn--block" style="margin-top:8px">Iniciar Sesion</a>
+  </div>
+</div>
+
+<!-- Hero -->
+<section class="hero">
+  <h1>Tu viaje. Tu favor. Tu compra.</h1>
+  <p>Todo en un clic, rapido y confiable. La forma mas segura de moverte en tu ciudad.</p>
+  <div class="hero-btns">
+    <a href="login_pasajero.php" class="ri-btn ri-btn--lg ri-btn--blue">
+      Solicitar un viaje
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </a>
+    <a href="registrocon.php" class="ri-btn ri-btn--lg">
+      Quiero ser conductor
+    </a>
+  </div>
+</section>
+
+<!-- Services -->
+<section class="section" id="services">
+  <h2 class="section-title">Que podemos hacer por ti</h2>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-card__icon service-card__icon--blue">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 13l2-6h14l2 6v6H3v-6z"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
+      </div>
+      <h3>RideIt X</h3>
+      <p>Viajes rapidos y seguros para cualquier destino en tu ciudad.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-card__icon service-card__icon--amber">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+      </div>
+      <h3>RideIt Favor</h3>
+      <p>Pide ayuda con cualquier tarea, recado o envio de paquetes.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-card__icon service-card__icon--green">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      </div>
+      <h3>RideIt Market</h3>
+      <p>Compra en tus tiendas favoritas y recibe tus productos en casa.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<div class="stats-row">
+  <div class="stat-item">
+    <div class="stat-item__val">500+</div>
+    <div class="stat-item__label">Viajes realizados</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-item__val">50+</div>
+    <div class="stat-item__label">Conductores</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-item__val">4.8</div>
+    <div class="stat-item__label">Calificacion promedio</div>
+  </div>
+</div>
+
+<!-- Benefits -->
+<section class="benefits">
+  <h2 class="section-title">Por que elegirnos</h2>
+  <div class="benefits-grid">
+    <div class="benefit">
+      <h3>Conductores confiables</h3>
+      <p>Todos nuestros conductores estan verificados y calificados por otros usuarios.</p>
+    </div>
+    <div class="benefit">
+      <h3>Seguimiento en tiempo real</h3>
+      <p>Sigue tu viaje o pedido con actualizaciones GPS en vivo.</p>
+    </div>
+    <div class="benefit">
+      <h3>Boton SOS de emergencia</h3>
+      <p>Tu seguridad es prioridad. Un boton de panico disponible en cada viaje.</p>
+    </div>
+    <div class="benefit">
+      <h3>Precios transparentes</h3>
+      <p>Sin cargos ocultos. Ve la tarifa antes de confirmar tu viaje.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Conductor band -->
+<section class="conductor-band">
+  <h2>Genera ingresos conduciendo</h2>
+  <p>Unete como conductor y empieza a recibir viajes hoy mismo.</p>
+  <a href="registrocon.php" class="ri-btn ri-btn--lg" style="--bg:var(--ri-green)">
+    Registrarme como conductor
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+  </a>
+</section>
+
+<!-- Footer -->
+<footer class="landing-footer">
+  <div class="footer-links">
+    <a href="terminos.php">Terminos</a>
+    <a href="privacidad.php">Privacidad</a>
+    <a href="help.php">Contacto</a>
+    <a href="login_admin.php" style="color:#7c3aed">Admin</a>
+  </div>
+  <p class="footer-copy">&copy; 2025 RideIt. Todos los derechos reservados.</p>
+</footer>
+
+</body>
+</html>
